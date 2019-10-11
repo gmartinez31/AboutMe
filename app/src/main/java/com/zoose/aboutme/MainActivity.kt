@@ -6,16 +6,23 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.zoose.aboutme.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    // created data
+    private val myName: MyName = MyName("Gustavo")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(R.layout.activity_main)
+
+        // data binding
+        binding.myName = myName
 
         val doneButton = binding.doneButton
         doneButton.setOnClickListener { addNickname() }
@@ -26,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addNickname() {
         binding.apply {
-            nicknameText.text = binding.nicknameEdit.text.toString()
+            myName?.nickname = nicknameEdit.text.toString()
             nicknameEdit.visibility = View.GONE
             doneButton.visibility = View.GONE
             nicknameText.visibility = View.VISIBLE
